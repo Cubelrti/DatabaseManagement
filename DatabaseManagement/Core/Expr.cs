@@ -6,26 +6,28 @@ using System.Threading.Tasks;
 
 namespace DatabaseManagement.Core
 {
-    class Expr
+    public class Expr
     {
         public enum ExprType
         {
-            CREATE,
-            DROP,
+            CREATETABLE,
+            CREATEDATABASE,
+            SHOWDATABASE,
+            SHOWTABLES,
+            DROPTABLE,
+            DROPDATABASE,
             UPDATE,
             SELECT,
             INSERT,
             DELETE,
         }
         public ExprType type;
-        private string lhs;
-        private string rhs;
+        private List<string> tokens = new List<string>();
         
-        public void compile(ExprType type, string lhs, string rhs)
+        public void compile(ExprType type, List<string> tokens)
         {
             Expr expr = new Expr();
-            expr.lhs = lhs;
-            expr.rhs = rhs;
+            expr.tokens = tokens;
             expr.type = type;
         }
         private void excute()
@@ -34,6 +36,8 @@ namespace DatabaseManagement.Core
         }
         private Expr()
         {
+            // TODO for shen: Intepreter/Parser
+            // parser write in here -- or invoke inported methods in Lexer.cs
         }
 
     }

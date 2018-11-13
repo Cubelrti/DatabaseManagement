@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DatabaseManagement.Core
+namespace DatabaseManagement.Core.Entities
 {
-    class Object
+    [Serializable]
+    public class Table
     {
+        string name;
+        
+
     }
 }
