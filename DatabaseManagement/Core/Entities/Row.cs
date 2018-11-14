@@ -17,7 +17,6 @@ namespace DatabaseManagement.Core.Entities
     public class Row<T>
     {
 
-
         public Types Type { get; set; } // maybe not needed
 
         public string name;

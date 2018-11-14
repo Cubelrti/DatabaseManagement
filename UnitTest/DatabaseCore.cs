@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DatabaseManagement.Core;
+using DatabaseManagement.Core.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest
@@ -42,6 +43,9 @@ namespace UnitTest
             instance.CreateDatabase("data");
             instance.selectDatabase("data");
             List<object> rows = new List<object>();
+            rows.Add(new Row<int> { name = "id"});
+            instance.CreateTable("table", rows);
+            Assert.AreEqual(instance._current.tables.Count, 1);
         }
     }
 }

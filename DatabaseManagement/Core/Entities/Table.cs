@@ -11,6 +11,7 @@ namespace DatabaseManagement.Core.Entities
     {
         public string name;
         public List<object> rows;
+        public Dictionary<string, Types> constraints;
 
     }
 }

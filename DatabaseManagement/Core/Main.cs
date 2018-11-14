@@ -44,18 +44,26 @@ namespace DatabaseManagement.Core
                 throw new TableNotFoundException();
             }
             
+            if (_table.constraints.ContainsKey(key))
+            {
+                throw new KeyConflictException();
+            }
             switch (key)
             {
                 case "VARCHAR":
                     _table.rows.Add(new Row<string> { name = key, value = value });
+                    _table.constraints.Add(key, Types.VARCHAR);
                     break;
                 case "INTEGER":
+                    _table.constraints.Add(key, Types.INTEGER);
                     _table.rows.Add(new Row<int> { name = key, value = Int32.Parse(value) });
                     break;
                 case "DATE":
+                    _table.constraints.Add(key, Types.DATE);
                     _table.rows.Add(new Row<DateTime> { name = key, value = DateTime.Parse(value)});
                     break;
                 case "DOUBLE":
+                    _table.constraints.Add(key, Types.DOUBLE);
                     _table.rows.Add(new Row<double> { name = key, value = Double.Parse(value) });
                     break;
                 default:
