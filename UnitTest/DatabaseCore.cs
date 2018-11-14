@@ -10,8 +10,9 @@ namespace UnitTest
         [TestMethod]
         public void CreateDb()
         {
-            Main instance = new Main();
+            Main instance = new Main(); 
             instance.CreateDatabase("created");
+            Assert.AreEqual(instance.databases.Count, 1);
         }
     }
 }

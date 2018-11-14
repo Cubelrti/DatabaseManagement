@@ -11,9 +11,9 @@ namespace DatabaseManagement.Core
     {
         public List<Database> databases = new List<Database>();
         public Database _current;
-        public Database CreateDatabase(string name)
+        public void CreateDatabase(string name)
         {
-            return new Database { name = name };
+            databases.Add( new Database { name = name });
         }
         public void DropDatabase(string name)
         {
