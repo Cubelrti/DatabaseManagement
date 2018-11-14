@@ -62,14 +62,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Exceptions\DatabaseNotFoundException.cs" />
+    <Compile Include="Core\Main.cs" />
     <Compile Include="Core\Entities\Database.cs" />
     <Compile Include="Core\Entities\Row.cs" />
     <Compile Include="Core\Entities\Table.cs" />
     <Compile Include="Core\Expr.cs" />
     <Compile Include="Core\Intefaces\Database.cs" />
     <Compile Include="Core\IO.cs" />
-    <Compile Include="Core\Lexer.cs" />
-    <Compile Include="Core\Main.cs" />
+    <Compile Include="Core\Adapter.cs" />
+    <Compile Include="Core\Exceptions\NotSelectedDatabaseException.cs" />
+    <Compile Include="Core\Exceptions\RowNotFoundException.cs" />
+    <Compile Include="Core\Exceptions\TableNotFoundException.cs" />
+    <Compile Include="Core\UnsupportedTypeException.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -101,8 +106,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

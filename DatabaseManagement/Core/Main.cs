@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace DatabaseManagement.Core
 {
-    class Main
+    public class Main
     {
-        List<Database> databases;
-        Database _current;
-        Database CreateDatabase(string name)
+        public List<Database> databases = new List<Database>();
+        public Database _current;
+        public Database CreateDatabase(string name)
         {
             return new Database { name = name };
         }
-        void DropDatabase(string name)
+        public void DropDatabase(string name)
         {
             var _remove = databases.Find(db => db.name == name);
             if (_remove == null)
@@ -24,7 +24,7 @@ namespace DatabaseManagement.Core
             }
             databases.Remove(_remove);
         }
-        void CreateTable(string name, List<object> rows)
+        public void CreateTable(string name, List<object> rows)
         {
             if (_current == null)
             {
@@ -32,7 +32,7 @@ namespace DatabaseManagement.Core
             }
             _current.tables.Add(new Table { name = name, rows = rows });
         }
-        void insertTable(string into, string key, string value)
+        public void insertTable(string into, string key, string value)
         {
             if (_current == null)
             {
@@ -62,17 +62,16 @@ namespace DatabaseManagement.Core
                     throw new UnsupportedTypeException();
             }
         }
-        List<object> selectRow(string tableName, List<string> predicates)
+
+        public List<object> selectRow(string tableName, List<string> predicates)
         {
             var table = _current.tables.Find(tb => tb.name == tableName);
             if (table == null)
                 throw new TableNotFoundException();
 
-
-
             throw new NotImplementedException();
         }
-        void selectDatabase(string name)
+        public void selectDatabase(string name)
         {
             _current = databases.Find(db => db.name == name);
         }
