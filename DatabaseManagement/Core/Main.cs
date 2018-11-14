@@ -24,13 +24,14 @@ namespace DatabaseManagement.Core
             }
             databases.Remove(_remove);
         }
-        public void CreateTable(string name, List<object> rows)
+        public void CreateTable(string name, Dictionary<string, Types> constraints)
         {
             if (_current == null)
             {
                 throw new NotSelectedDatabaseException();
             }
-            _current.tables.Add(new Table { name = name, rows = rows });
+            _current.tables.Add(new Table { name = name, constraints = constraints });
+            
         }
         public void insertTable(string into, string key, string value)
         {
@@ -44,26 +45,23 @@ namespace DatabaseManagement.Core
                 throw new TableNotFoundException();
             }
             
-            if (_table.constraints.ContainsKey(key))
+            if (!_table.constraints.ContainsKey(key))
             {
-                throw new KeyConflictException();
+                throw new KeyNotFoundException();
             }
-            switch (key)
+
+            switch (_table.constraints[key])
             {
-                case "VARCHAR":
+                case Types.VARCHAR:
                     _table.rows.Add(new Row<string> { name = key, value = value });
-                    _table.constraints.Add(key, Types.VARCHAR);
                     break;
-                case "INTEGER":
-                    _table.constraints.Add(key, Types.INTEGER);
+                case Types.INTEGER:
                     _table.rows.Add(new Row<int> { name = key, value = Int32.Parse(value) });
                     break;
-                case "DATE":
-                    _table.constraints.Add(key, Types.DATE);
+                case Types.DATE:
                     _table.rows.Add(new Row<DateTime> { name = key, value = DateTime.Parse(value)});
                     break;
-                case "DOUBLE":
-                    _table.constraints.Add(key, Types.DOUBLE);
+                case Types.DOUBLE:
                     _table.rows.Add(new Row<double> { name = key, value = Double.Parse(value) });
                     break;
                 default:

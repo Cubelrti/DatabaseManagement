@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DatabaseManagement.Core
 {
     [Serializable]
-    internal class RowNotFoundException : Exception
+    public class RowNotFoundException : Exception
     {
         public RowNotFoundException()
         {

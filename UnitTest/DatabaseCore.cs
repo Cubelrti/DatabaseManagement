@@ -34,7 +34,6 @@ namespace UnitTest
             instance.CreateDatabase("data");
             instance.selectDatabase("data");
             Assert.IsNotNull(instance._current);
-
         }
         [TestMethod]
         public void CreateTable()
@@ -42,10 +41,21 @@ namespace UnitTest
             Main instance = new Main();
             instance.CreateDatabase("data");
             instance.selectDatabase("data");
-            List<object> rows = new List<object>();
-            rows.Add(new Row<int> { name = "id"});
-            instance.CreateTable("table", rows);
+            Dictionary<String, Types> constraints = new Dictionary<string, Types>();
+            constraints.Add("id", Types.INTEGER);
+            instance.CreateTable("table", constraints);
             Assert.AreEqual(instance._current.tables.Count, 1);
+        }
+        [TestMethod]
+        public void InsertTable()
+        {
+            Main instance = new Main();
+            instance.CreateDatabase("data");
+            instance.selectDatabase("data");
+            Dictionary<String, Types> constraints = new Dictionary<string, Types>();
+            constraints.Add("id", Types.INTEGER);
+            instance.CreateTable("table", constraints);
+            instance.insertTable("table", "id", "1");
         }
     }
 }

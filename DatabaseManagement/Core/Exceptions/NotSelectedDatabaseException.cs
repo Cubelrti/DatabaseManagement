@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DatabaseManagement.Core
 {
     [Serializable]
-    internal class NotSelectedDatabaseException : Exception
+    public class NotSelectedDatabaseException : Exception
     {
         public NotSelectedDatabaseException()
         {

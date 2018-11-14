@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DatabaseManagement.Core
 {
     [Serializable]
-    internal class DatabaseNotFoundException : Exception
+    public class DatabaseNotFoundException : Exception
     {
         public DatabaseNotFoundException()
         {

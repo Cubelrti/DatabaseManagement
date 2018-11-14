@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DatabaseManagement.Core
 {
     [Serializable]
-    internal class UnsupportedTypeException : Exception
+    public class UnsupportedTypeException : Exception
     {
         public UnsupportedTypeException()
         {

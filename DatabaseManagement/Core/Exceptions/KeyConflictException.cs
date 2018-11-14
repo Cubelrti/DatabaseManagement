@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DatabaseManagement.Core
 {
     [Serializable]
-    internal class KeyConflictException : Exception
+    public class KeyConflictException : Exception
     {
         public KeyConflictException()
         {
