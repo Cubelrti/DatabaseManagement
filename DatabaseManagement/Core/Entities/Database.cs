@@ -11,5 +11,9 @@ namespace DatabaseManagement.Core.Entities
     {
         public string name;
         public List<Table> tables = new List<Table>();
+        public Database()
+        {
+
+        }
     }
 }

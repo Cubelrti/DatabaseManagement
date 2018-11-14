@@ -9,8 +9,8 @@ namespace DatabaseManagement.Core.Entities
     [Serializable]
     public class Table
     {
-        string name;
-        
+        public string name;
+        public List<object> rows;
 
     }
 }

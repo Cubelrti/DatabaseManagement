@@ -6,16 +6,23 @@ using System.Threading.Tasks;
 
 namespace DatabaseManagement.Core.Entities
 {
-    class Row
+    public enum Types
     {
-        Dictionary<String, String> columns = new Dictionary<string, string>();
-        public string toString()
-        {
-            string builder = "";
-            foreach (var item in columns)            {
-                builder += (item.Value + ' ');
-            }
-            return builder;
-        }
+        VARCHAR,
+        INTEGER,
+        DOUBLE,
+        DATE,
+        CHAR
+    }
+    public class Row<T>
+    {
+
+
+        public Types Type { get; set; } // maybe not needed
+
+        public string name;
+
+        public T value;
+
     }
 }
