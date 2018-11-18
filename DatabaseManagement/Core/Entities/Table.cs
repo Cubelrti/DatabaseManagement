@@ -11,6 +11,6 @@ namespace DatabaseManagement.Core.Entities
     {
         public string name;
         public Dictionary<string, Types> ColumnDefinitions;
-        public List<object> rows = new List<object>();
+        public List<Row> rows = new List<Row>();
     }
 }

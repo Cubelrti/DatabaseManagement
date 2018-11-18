@@ -75,7 +75,7 @@ namespace DatabaseManagement.Core
             
         }
 
-        public List<object> /*Rows*/ SelectRow(string tableName)
+        public List<Row> SelectRow(string tableName)
         {
             if (_current == null)
             {
@@ -86,7 +86,21 @@ namespace DatabaseManagement.Core
                 throw new TableNotFoundException();
             return table.rows;
         }
-        public void selectDatabase(string name)
+
+        public void SetInnerRowsDirectly(string tableName, List<Row> rows)
+        {
+            // this method is gay
+            if (_current == null)
+            {
+                throw new NotSelectedDatabaseException();
+            }
+            var table = _current.tables.Find(tb => tb.name == tableName);
+            if (table == null)
+                throw new TableNotFoundException();
+            table.rows = rows;
+        }
+
+        public void SelectDatabase(string name)
         {
             _current = databases.Find(db => db.name == name);
         }

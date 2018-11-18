@@ -32,7 +32,7 @@ namespace UnitTest
         {
             Main instance = new Main();
             instance.CreateDatabase("data");
-            instance.selectDatabase("data");
+            instance.SelectDatabase("data");
             Assert.IsNotNull(instance._current);
         }
         [TestMethod]
@@ -40,9 +40,11 @@ namespace UnitTest
         {
             Main instance = new Main();
             instance.CreateDatabase("data");
-            instance.selectDatabase("data");
-            Dictionary<String, Types> constraints = new Dictionary<string, Types>();
-            constraints.Add("id", Types.INTEGER);
+            instance.SelectDatabase("data");
+            Dictionary<String, Types> constraints = new Dictionary<string, Types>
+            {
+                { "id", Types.INTEGER }
+            };
             instance.CreateTable("table", constraints);
             Assert.AreEqual(instance._current.tables.Count, 1);
         }
@@ -51,9 +53,11 @@ namespace UnitTest
         {
             Main instance = new Main();
             instance.CreateDatabase("data");
-            instance.selectDatabase("data");
-            Dictionary<String, Types> constraints = new Dictionary<string, Types>();
-            constraints.Add("id", Types.INTEGER);
+            instance.SelectDatabase("data");
+            Dictionary<String, Types> constraints = new Dictionary<string, Types>
+            {
+                { "id", Types.INTEGER }
+            };
             instance.CreateTable("table", constraints);
             instance.InsertTable("table", new Dictionary<string, string> {
                 { "id", "123456" }
@@ -63,6 +67,7 @@ namespace UnitTest
             });
             var rows = instance.SelectRow("table");
             Assert.AreEqual(rows.Count, 2);
+            Assert.AreEqual(rows[0].keyValuePairs["id"], 123456);
         }
     }
 }
