@@ -68,7 +68,7 @@
     <Compile Include="Core\Entities\Database.cs" />
     <Compile Include="Core\Entities\Row.cs" />
     <Compile Include="Core\Entities\Table.cs" />
-    <Compile Include="Core\Expr.cs" />
+    <Compile Include="Core\Executor.cs" />
     <Compile Include="Core\Intefaces\Database.cs" />
     <Compile Include="Core\IO.cs" />
     <Compile Include="Core\Adapter.cs" />

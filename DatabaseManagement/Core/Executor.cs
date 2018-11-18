@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace DatabaseManagement.Core
 {
-    public class Expr
+    public class Executor
     {
         public enum ExprType
         {
             CREATETABLE,
             CREATEDATABASE,
+            USEDATABASE,
             SHOWDATABASE,
-            SHOWTABLES,
+            SHOWTABLE,
             DROPTABLE,
             DROPDATABASE,
             UPDATE,
@@ -25,7 +26,7 @@ namespace DatabaseManagement.Core
         }
         public ExprType type;
         private List<string> tokens = new List<string>();
-
+        private Main instance;
         public static Types ToType(string type)
         {
             switch (type)
@@ -47,9 +48,12 @@ namespace DatabaseManagement.Core
             }
         }
         
-        public void Excute(Main instance)
+        private string execute()
         {
-
+            if (type == ExprType.USEDATABASE)
+            {
+                instance.SelectDatabase(tokens[1]);
+            }
             if (type == ExprType.CREATEDATABASE)
             {
                 instance.CreateDatabase(tokens[2]);
@@ -63,6 +67,15 @@ namespace DatabaseManagement.Core
                     .ToDictionary(expr => expr[0],  expr => ToType(expr[1]));
                 instance.CreateTable(name, constraints);
             }
+            if (type == ExprType.SHOWDATABASE)
+            {
+                return instance.databases.Select(db => db.name).Aggregate((a, b) => a + ", " + b);
+            }
+            if (type == ExprType.SHOWTABLE)
+            {
+                return instance._current.tables.Select(db => db.name).Aggregate((a, b) => a + ", " + b);
+            }
+            return "ok";
             // TODO excute this expression
         }
 
@@ -86,7 +99,11 @@ namespace DatabaseManagement.Core
 
             return formatted.Split(' ').Where(s => !string.IsNullOrEmpty(s)).ToList();
         }
-        public Expr(string statememt)
+        public Executor(Main instance)
+        {
+            this.instance = instance;
+        }
+        public string Run(string statememt)
         {
             var expr = FormatRaw(statememt);
             tokens = expr;
@@ -94,6 +111,9 @@ namespace DatabaseManagement.Core
             {
                 switch (expr[0])
                 {
+                    case "use":
+                        type = ExprType.USEDATABASE;
+                        break;
                     case "create":
                         if (expr[1] == "database")
                             type = ExprType.CREATEDATABASE;
@@ -107,7 +127,7 @@ namespace DatabaseManagement.Core
                         if (expr[1] == "database")
                             type = ExprType.SHOWDATABASE;
                         if (expr[1] == "table")
-                            type = ExprType.SHOWTABLES;
+                            type = ExprType.SHOWTABLE;
                         break;
                     case "drop":
                         if (expr[1] == "database")
@@ -128,6 +148,7 @@ namespace DatabaseManagement.Core
                         throw new UnsupportedTypeException();
                 }
             }
+            return execute();
         }
         
     }

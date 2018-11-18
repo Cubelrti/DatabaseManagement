@@ -14,7 +14,7 @@ namespace UnitTest
         {
             Main instance = new Main(); 
             instance.CreateDatabase("created");
-            Assert.AreEqual(instance.databases.Count, 1);
+            Assert.AreEqual(1, instance.databases.Count);
         }
 
         [TestMethod]
@@ -22,9 +22,9 @@ namespace UnitTest
         {
             Main instance = new Main();
             instance.CreateDatabase("data");
-            Assert.AreEqual(instance.databases.Count, 1);
+            Assert.AreEqual(1, instance.databases.Count);
             instance.DropDatabase("data");
-            Assert.AreEqual(instance.databases.Count, 0);
+            Assert.AreEqual(0, instance.databases.Count);
         }
 
         [TestMethod]
@@ -46,7 +46,7 @@ namespace UnitTest
                 { "id", Types.INTEGER }
             };
             instance.CreateTable("table", constraints);
-            Assert.AreEqual(instance._current.tables.Count, 1);
+            Assert.AreEqual(1, instance._current.tables.Count);
         }
         [TestMethod]
         public void DropTable()
@@ -59,9 +59,9 @@ namespace UnitTest
                 { "id", Types.INTEGER }
             };
             instance.CreateTable("table", constraints);
-            Assert.AreEqual(instance._current.tables.Count, 1);
+            Assert.AreEqual(1, instance._current.tables.Count);
             instance.DropTable("table");
-            Assert.AreEqual(instance._current.tables.Count, 0);
+            Assert.AreEqual(0, instance._current.tables.Count);
         }
         [TestMethod]
         public void InsertTable()
@@ -81,8 +81,8 @@ namespace UnitTest
                 { "id", "223456" }
             });
             var rows = instance.SelectAny("table");
-            Assert.AreEqual(rows.Count, 2);
-            Assert.AreEqual(rows[0].keyValuePairs["id"], 123456);
+            Assert.AreEqual(2, rows.Count);
+            Assert.AreEqual(123456, rows[0].keyValuePairs["id"]);
         }
     }
 }

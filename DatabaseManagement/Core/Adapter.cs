@@ -8,52 +8,52 @@ namespace DatabaseManagement.Core
 {
     class Adapter : Intefaces.Database
     {
-        public void CreateDatabase(Expr expr)
+        public void CreateDatabase(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateTable(Expr expr)
+        public void CreateTable(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Expr expr)
+        public void Delete(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public void DropDatabases(Expr expr)
+        public void DropDatabases(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public void DropTable(Expr expr)
+        public void DropTable(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public void Insert(Expr expr)
+        public void Insert(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public List<string> Select(Expr expr)
+        public List<string> Select(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public List<string> ShowDatabases(Expr expr)
+        public List<string> ShowDatabases(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public List<string> ShowTables(Expr expr)
+        public List<string> ShowTables(Executor expr)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Expr expr)
+        public void Update(Executor expr)
         {
             throw new NotImplementedException();
         }
