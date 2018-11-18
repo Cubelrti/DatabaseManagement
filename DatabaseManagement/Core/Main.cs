@@ -30,10 +30,10 @@ namespace DatabaseManagement.Core
             {
                 throw new NotSelectedDatabaseException();
             }
-            _current.tables.Add(new Table { name = name, constraints = constraints });
+            _current.tables.Add(new Table { name = name, ColumnDefinitions = constraints });
             
         }
-        public void insertTable(string into, string key, string value)
+        public void InsertTable(string into, Dictionary<string, string> defs)
         {
             if (_current == null)
             {
@@ -44,36 +44,42 @@ namespace DatabaseManagement.Core
             {
                 throw new TableNotFoundException();
             }
-            
-            if (!_table.constraints.ContainsKey(key))
+            foreach (var item in defs)
             {
-                throw new KeyNotFoundException();
-            }
+                var key = item.Key;
+                if (!_table.ColumnDefinitions.ContainsKey(key))
+                {
+                    throw new KeyNotFoundException();
+                }
 
-            switch (_table.constraints[key])
-            {
-                case Types.VARCHAR:
-                    _table.rows.Add(new Row<string> { name = key, value = value });
-                    break;
-                case Types.INTEGER:
-                    _table.rows.Add(new Row<int> { name = key, value = Int32.Parse(value) });
-                    break;
-                case Types.DATE:
-                    _table.rows.Add(new Row<DateTime> { name = key, value = DateTime.Parse(value)});
-                    break;
-                case Types.DOUBLE:
-                    _table.rows.Add(new Row<double> { name = key, value = Double.Parse(value) });
-                    break;
-                default:
-                    throw new UnsupportedTypeException();
+                switch (_table.ColumnDefinitions[key])
+                {
+                    case Types.VARCHAR:
+                        _table.rows.Add(new Row<string> { name = key, value = (string)item.Value });
+                        break;
+                    case Types.INTEGER:
+                        _table.rows.Add(new Row<int> { name = key, value = Int32.Parse((string)item.Value) });
+                        break;
+                    case Types.DATE:
+                        _table.rows.Add(new Row<DateTime> { name = key, value = DateTime.Parse((string)item.Value) });
+                        break;
+                    case Types.DOUBLE:
+                        _table.rows.Add(new Row<double> { name = key, value = Double.Parse((string)item.Value) });
+                        break;
+                    default:
+                        throw new UnsupportedTypeException();
+                }
             }
+            
         }
 
-        public List<object> selectRow(string tableName, List<string> predicates)
+        public List<object> /*Rows*/ selectRowAny(string tableName, List<string> predicates)
         {
             var table = _current.tables.Find(tb => tb.name == tableName);
             if (table == null)
                 throw new TableNotFoundException();
+
+
 
             throw new NotImplementedException();
         }

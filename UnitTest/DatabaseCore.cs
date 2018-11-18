@@ -55,7 +55,9 @@ namespace UnitTest
             Dictionary<String, Types> constraints = new Dictionary<string, Types>();
             constraints.Add("id", Types.INTEGER);
             instance.CreateTable("table", constraints);
-            instance.insertTable("table", "id", "1");
+            instance.InsertTable("table", new Dictionary<string, string> {
+                { "id", "123456" }
+            });
         }
     }
 }

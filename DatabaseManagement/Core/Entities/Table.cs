@@ -10,8 +10,7 @@ namespace DatabaseManagement.Core.Entities
     public class Table
     {
         public string name;
+        public Dictionary<string, Types> ColumnDefinitions;
         public List<object> rows = new List<object>();
-        public Dictionary<string, Types> constraints;
-
     }
 }
