@@ -14,14 +14,12 @@ namespace DatabaseManagement.Core.Entities
         DATE,
         CHAR
     }
-    public class Row<T>
+    public class Row
     {
-
-        public Types Type { get; set; } // maybe not needed
-
         public string name;
-
-        public T value;
+        
+        // 这里kv不检查类型，类型信息统一存储在constraint中
+        public Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
 
     }
 }

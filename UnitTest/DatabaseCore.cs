@@ -58,6 +58,11 @@ namespace UnitTest
             instance.InsertTable("table", new Dictionary<string, string> {
                 { "id", "123456" }
             });
+            instance.InsertTable("table", new Dictionary<string, string> {
+                { "id", "223456" }
+            });
+            var rows = instance.SelectRow("table");
+            Assert.AreEqual(rows.Count, 2);
         }
     }
 }

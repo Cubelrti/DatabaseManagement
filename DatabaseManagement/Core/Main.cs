@@ -44,6 +44,7 @@ namespace DatabaseManagement.Core
             {
                 throw new TableNotFoundException();
             }
+            var _row = new Row();
             foreach (var item in defs)
             {
                 var key = item.Key;
@@ -51,37 +52,39 @@ namespace DatabaseManagement.Core
                 {
                     throw new KeyNotFoundException();
                 }
-
+                // pattern matching foreach-switch
                 switch (_table.ColumnDefinitions[key])
                 {
                     case Types.VARCHAR:
-                        _table.rows.Add(new Row<string> { name = key, value = (string)item.Value });
+                        _row.keyValuePairs.Add(key, item.Value);
                         break;
                     case Types.INTEGER:
-                        _table.rows.Add(new Row<int> { name = key, value = Int32.Parse((string)item.Value) });
+                        _row.keyValuePairs.Add(key, Int32.Parse(item.Value));
                         break;
                     case Types.DATE:
-                        _table.rows.Add(new Row<DateTime> { name = key, value = DateTime.Parse((string)item.Value) });
+                        _row.keyValuePairs.Add(key, DateTime.Parse(item.Value));
                         break;
                     case Types.DOUBLE:
-                        _table.rows.Add(new Row<double> { name = key, value = Double.Parse((string)item.Value) });
+                        _row.keyValuePairs.Add(key, Double.Parse(item.Value));
                         break;
                     default:
                         throw new UnsupportedTypeException();
                 }
             }
+            _table.rows.Add(_row);
             
         }
 
-        public List<object> /*Rows*/ selectRowAny(string tableName, List<string> predicates)
+        public List<object> /*Rows*/ SelectRow(string tableName)
         {
+            if (_current == null)
+            {
+                throw new NotSelectedDatabaseException();
+            }
             var table = _current.tables.Find(tb => tb.name == tableName);
             if (table == null)
                 throw new TableNotFoundException();
-
-
-
-            throw new NotImplementedException();
+            return table.rows;
         }
         public void selectDatabase(string name)
         {
