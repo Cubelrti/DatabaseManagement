@@ -33,6 +33,19 @@ namespace DatabaseManagement.Core
             _current.tables.Add(new Table { name = name, ColumnDefinitions = constraints });
             
         }
+        public void DropTable(string name)
+        {
+            if (_current == null)
+            {
+                throw new NotSelectedDatabaseException();
+            }
+            var _remove = _current.tables.Find(t => t.name == name);
+            if (_remove == null)
+            {
+                throw new TableNotFoundException();
+            }
+            _current.tables.Remove(_remove);
+        }
         public void InsertTable(string into, Dictionary<string, string> defs)
         {
             if (_current == null)
@@ -72,10 +85,9 @@ namespace DatabaseManagement.Core
                 }
             }
             _table.rows.Add(_row);
-            
         }
 
-        public List<Row> SelectRow(string tableName)
+        public List<Row> SelectAny(string tableName)
         {
             if (_current == null)
             {

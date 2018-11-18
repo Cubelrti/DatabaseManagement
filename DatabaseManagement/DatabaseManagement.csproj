@@ -76,6 +76,7 @@
     <Compile Include="Core\Exceptions\RowNotFoundException.cs" />
     <Compile Include="Core\Exceptions\TableNotFoundException.cs" />
     <Compile Include="Core\Exceptions\UnsupportedTypeException.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
