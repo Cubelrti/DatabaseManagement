@@ -108,7 +108,7 @@ namespace DatabaseManagement.Core
             {
                 var into = tokens[2];
                 var values = tokens.Skip(3)
-                    .Where(v => v != "(" && v != ")" )
+                    .Where(v => v != "(" && v != ")" && v != "'")
                     .Split(s => s == "values")
                     .Select(li => li.Split(s => s == ","))
                     .ToList();
