@@ -43,6 +43,24 @@ namespace UnitTest
             Assert.AreEqual(VARCHAR, instance._current.tables[0].ColumnDefinitions["classno"]);
         }
         [TestMethod]
+        public void ParseDropTable()
+        {
+            Main instance = new Main();
+            Executor expr = new Executor(instance);
+            expr.Run("CREATE DATABASE fuck");
+            expr.Run("USE fuck");
+            expr.Run(@"CREATE TABLE class(
+                classno varchar(6),
+                classname varchar(20),
+                classmajor varchar(20),
+                classdept varchar(20)
+            )");
+            Assert.AreEqual(4, instance._current.tables[0].ColumnDefinitions.Count);
+            Assert.AreEqual(VARCHAR, instance._current.tables[0].ColumnDefinitions["classno"]);
+            expr.Run("DROP TABLE class");
+            Assert.AreEqual(0, instance._current.tables.Count);
+        }
+        [TestMethod]
         public void ParseShowDatabase()
         {
             Main instance = new Main();

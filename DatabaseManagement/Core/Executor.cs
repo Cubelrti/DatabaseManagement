@@ -92,6 +92,14 @@ namespace DatabaseManagement.Core
             {
                 return instance.databases.Select(db => db.name).Aggregate((a, b) => a + ", " + b);
             }
+            if (type == ExprType.DROPDATABASE)
+            {
+                instance.DropDatabase(tokens[2]);
+            }
+            if (type == ExprType.DROPTABLE)
+            {
+                instance.DropTable(tokens[2]);
+            }
             if (type == ExprType.SHOWTABLE)
             {
                 return instance._current.tables.Select(db => db.name).Aggregate((a, b) => a + ", " + b);
