@@ -10,7 +10,7 @@ namespace UnitTest
     public class DatabaseCore
     {
         [TestMethod]
-        public void CreateDb()
+        public void CreateDatabase()
         {
             Main instance = new Main(); 
             instance.CreateDatabase("created");
@@ -18,7 +18,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void DeleteDb()
+        public void DeleteDatabase()
         {
             Main instance = new Main();
             instance.CreateDatabase("data");
@@ -28,7 +28,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void SelectDb()
+        public void SelectDatabase()
         {
             Main instance = new Main();
             instance.CreateDatabase("data");

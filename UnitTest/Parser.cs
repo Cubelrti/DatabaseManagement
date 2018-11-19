@@ -17,6 +17,16 @@ namespace UnitTest
             Assert.AreEqual(1, instance.databases.Count);
         }
         [TestMethod]
+        public void ParseDropDatabase()
+        {
+            Main instance = new Main();
+            Executor expr = new Executor(instance);
+            expr.Run("CREATE DATABASE fuck");
+            Assert.AreEqual(1, instance.databases.Count);
+            expr.Run("DROP DATABASE fuck");
+            Assert.AreEqual(0, instance.databases.Count);
+        }
+        [TestMethod]
         public void ParseCreateTable()
         {
             Main instance = new Main();
@@ -59,7 +69,7 @@ namespace UnitTest
             expr.Run(@"CREATE TABLE student(
 	            sno varchar(8),
                 sname varchar(8),
-                ssex varchar(2)
+                ssex varchar(2),
                 sbirthday date
             )");
             var result = expr.Run("SHOW TABLE");
@@ -105,7 +115,7 @@ namespace UnitTest
                     values 
                     ('软件0801', 'Rj0801', '软件工程', '软件开发', 24)");
             var result = expr.Run("select * from class;");
-            Assert.AreEqual("Rj0806 软件0806 软件工程 软件开发 24\n Rj0801 软件0801 软件工程 软件开发 24", result);
+            Assert.AreEqual("'rj0806', '软件0806', '软件工程', '软件开发', 24\n'软件0801', 'rj0801', '软件工程', '软件开发', 24", result);
         }
         [TestMethod]
         public void ParseSelectColumn()
@@ -124,8 +134,8 @@ namespace UnitTest
             expr.Run(@"insert into class (classno, classname, classmajor, classdept, studentnumber)
                     values 
                     ('Rj0806', '软件0806', '软件工程', '软件开发', 24)");
-            var result = expr.Run("select classno, classname from class where classname='Rj0806'");
-            Assert.AreEqual("Rj0806 软件0806", result);
+            var result = expr.Run("select classno, classname from class where classno='Rj0806'");
+            Assert.AreEqual("'rj0806', '软件0806'", result);
         }
         [TestMethod]
         public void ParseDelete()
@@ -169,7 +179,7 @@ namespace UnitTest
                     values 
                     ('软件0801', 'Rj0801', '软件工程', '软件开发', 24)");
             var result = expr.Run("select * from class where classno='Rj0801';");
-            Assert.AreEqual("Rj0801 软件0801 软件工程 软件开发 24", result);
+            Assert.AreEqual("'软件0801', 'rj0801', '软件工程', '软件开发', 24", result);
         }
     }
 }

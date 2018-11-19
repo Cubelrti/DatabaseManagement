@@ -48,6 +48,28 @@ namespace DatabaseManagement.Core
             }
         }
         
+        private Func<Row, bool> filterWhere(bool reverse = false)
+        {
+            var whereStartBy = tokens.FindIndex(s => s == "where");
+            if (whereStartBy == -1)
+            {
+                return (row) => reverse ^ true;
+            }
+            var predicates = tokens.Skip(whereStartBy + 1).ToList();
+            var lhs = predicates[0];
+            return (row) =>
+            {
+                if (predicates[1] == "=")
+                {
+                    if (row.keyValuePairs[predicates[0]].ToString() == predicates[2])
+                    {
+                        return reverse ^ true;
+                    }
+                }
+                return reverse ^ false;
+            };
+        }
+
         private string execute()
         {
             if (type == ExprType.USEDATABASE)
@@ -63,7 +85,6 @@ namespace DatabaseManagement.Core
                 var name = tokens[2];
                 var constraints = tokens.Skip(4)
                     .Split(s => s == ",")
-                    .ToList()
                     .ToDictionary(expr => expr[0],  expr => ToType(expr[1]));
                 instance.CreateTable(name, constraints);
             }
@@ -75,8 +96,56 @@ namespace DatabaseManagement.Core
             {
                 return instance._current.tables.Select(db => db.name).Aggregate((a, b) => a + ", " + b);
             }
+            if (type == ExprType.INSERT)
+            {
+                var into = tokens[2];
+                var values = tokens.Skip(3)
+                    .Where(v => v != "(" && v != ")" )
+                    .Split(s => s == "values")
+                    .Select(li => li.Split(s => s == ","))
+                    .ToList();
+                var dict = values[0].Zip(values[1], (k, v) => new { k, v })
+                    .ToDictionary(x => x.k[0], x => x.v[0]);
+                instance.InsertTable(into, dict);
+            }
+            if (type == ExprType.SELECT)
+            {
+                if (tokens[1] == "*")
+                {
+                    // select any
+                    var rows = instance.SelectAny(tokens[3])
+                        .Where(filterWhere())
+                        .Select(r => r.keyValuePairs);
+                    var values = rows.Select(r => r.Values.Select(obj => obj.ToString()).ToList())
+                        .Select(row => row.Aggregate((a, b) => a + ", " + b))
+                        .Aggregate((a, b) => a + "\n" + b);
+                    return values;
+                } else
+                {
+                    // select row
+                    var from = tokens.FindIndex(s => s == "from");
+                    var columns = tokens.Take(from)
+                        .Skip(1)
+                        .Where(v => v != "(" && v != ")")
+                        .Split(s => s == ",")
+                        .Select(l => l[0]);
+                    var rows = instance.SelectAny(tokens[from + 1])
+                        .Where(filterWhere())
+                        .Select(r => r.keyValuePairs);
+                    var values = rows.Select(r => r.Where(kv => columns.Contains(kv.Key)).Select(obj => obj.Value.ToString()).ToList())
+                        .Select(row => row.Aggregate((a, b) => a + ", " + b))
+                        .Aggregate((a, b) => a + "\n" + b);
+                    return values;
+                }
+            }
+            if (type == ExprType.DELETE)
+            {
+                var from = tokens[2];
+                var rows = instance.SelectAny(from)
+                    .Where(filterWhere(true));
+                instance.SetInnerRowsDirectly(from, rows.ToList());
+            }
             return "ok";
-            // TODO excute this expression
         }
 
         private static List<string> FormatRaw(string rawStmt)
