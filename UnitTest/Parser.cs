@@ -133,7 +133,7 @@ namespace UnitTest
                     values 
                     ('软件0801', 'Rj0801', '软件工程', '软件开发', 24)");
             var result = expr.Run("select * from class;");
-            Assert.AreEqual("'rj0806', '软件0806', '软件工程', '软件开发', 24\n'软件0801', 'rj0801', '软件工程', '软件开发', 24", result);
+            Assert.AreEqual("rj0806, 软件0806, 软件工程, 软件开发, 24\n软件0801, rj0801, 软件工程, 软件开发, 24", result);
         }
         [TestMethod]
         public void ParseSelectColumn()
@@ -153,7 +153,7 @@ namespace UnitTest
                     values 
                     ('Rj0806', '软件0806', '软件工程', '软件开发', 24)");
             var result = expr.Run("select classno, classname from class where classno='Rj0806'");
-            Assert.AreEqual("'rj0806', '软件0806'", result);
+            Assert.AreEqual("rj0806, 软件0806", result);
         }
         [TestMethod]
         public void ParseDelete()
@@ -197,7 +197,7 @@ namespace UnitTest
                     values 
                     ('软件0801', 'Rj0801', '软件工程', '软件开发', 24)");
             var result = expr.Run("select * from class where classno='Rj0801';");
-            Assert.AreEqual("'软件0801', 'rj0801', '软件工程', '软件开发', 24", result);
+            Assert.AreEqual("软件0801, rj0801, 软件工程, 软件开发, 24", result);
         }
     }
 }

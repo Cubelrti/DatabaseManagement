@@ -12,5 +12,9 @@ namespace DatabaseManagement.Core.Entities
         public string name;
         public Dictionary<string, Types> ColumnDefinitions;
         public List<Row> rows = new List<Row>();
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

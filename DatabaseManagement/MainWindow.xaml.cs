@@ -42,7 +42,7 @@ namespace DatabaseManagement
             instance = new Main();
             Print("Loaded Core: NaiveSQL v0.1");
             executor = new Executor(instance);
-            Print("Loaded Executor: Tintepreter v0.1");
+            Print("Loaded Executor: Tinterpreter v0.1");
             Print("");
         }
 
@@ -59,8 +59,11 @@ namespace DatabaseManagement
             Print("SQL > " + SQLCommand.Text);
             try
             {
-                var result = executor.Run(SQLCommand.Text);
-                Print("      " + result);
+                var result = executor.Run(SQLCommand.Text)
+                    .Split('\n')
+                    .Select(line => "      " + line)
+                    .Aggregate((a, b) => a + '\n' + b);
+                Print(result);
             }
             catch (Exception ex)
             {
@@ -68,6 +71,12 @@ namespace DatabaseManagement
             }
             Scroller.ScrollToEnd();
             SQLCommand.Text = "";
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            SelectedDatabase.Content = instance._current.name;
+            TableList.ItemsSource = instance._current.tables;
         }
     }
 }

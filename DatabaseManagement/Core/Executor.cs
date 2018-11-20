@@ -55,7 +55,9 @@ namespace DatabaseManagement.Core
             {
                 return (row) => reverse ^ true;
             }
-            var predicates = tokens.Skip(whereStartBy + 1).ToList();
+            var predicates = tokens.Skip(whereStartBy + 1)
+                .Select(s => s.Replace("'", ""))
+                .ToList();
             var lhs = predicates[0];
             return (row) =>
             {
@@ -90,6 +92,10 @@ namespace DatabaseManagement.Core
             }
             if (type == ExprType.SHOWDATABASE)
             {
+                if (instance.databases.Count == 0)
+                {
+                    return "No database found.";
+                }
                 return instance.databases.Select(db => db.name).Aggregate((a, b) => a + ", " + b);
             }
             if (type == ExprType.DROPDATABASE)
@@ -102,13 +108,22 @@ namespace DatabaseManagement.Core
             }
             if (type == ExprType.SHOWTABLE)
             {
+                if (instance._current == null)
+                {
+                    throw new NotSelectedDatabaseException();
+                }
+                if (instance._current.tables.Count == 0)
+                {
+                    return "No table found.";
+                }
                 return instance._current.tables.Select(db => db.name).Aggregate((a, b) => a + ", " + b);
             }
             if (type == ExprType.INSERT)
             {
                 var into = tokens[2];
                 var values = tokens.Skip(3)
-                    .Where(v => v != "(" && v != ")" && v != "'")
+                    .Where(v => v != "(" && v != ")")
+                    .Select(s => s.Replace("'", ""))
                     .Split(s => s == "values")
                     .Select(li => li.Split(s => s == ","))
                     .ToList();

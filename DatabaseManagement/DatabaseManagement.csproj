@@ -62,6 +62,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Exceptions\DatabaseConflictException.cs" />
     <Compile Include="Core\Exceptions\DatabaseNotFoundException.cs" />
     <Compile Include="Core\Exceptions\KeyConflictException.cs" />
     <Compile Include="Core\Main.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Core\Exceptions\RowNotFoundException.cs" />
     <Compile Include="Core\Exceptions\TableNotFoundException.cs" />
     <Compile Include="Core\Exceptions\UnsupportedTypeException.cs" />
+    <Compile Include="Core\Exceptions\TableConflictException.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

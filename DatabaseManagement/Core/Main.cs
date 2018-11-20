@@ -13,6 +13,10 @@ namespace DatabaseManagement.Core
         public Database _current;
         public void CreateDatabase(string name)
         {
+            if (databases.Any(db => db.name == name))
+            {
+                throw new DatabaseConflictException();
+            }
             databases.Add( new Database { name = name });
         }
         public void DropDatabase(string name)
@@ -29,6 +33,10 @@ namespace DatabaseManagement.Core
             if (_current == null)
             {
                 throw new NotSelectedDatabaseException();
+            }
+            if (_current.tables.Any(t => t.name == name))
+            {
+                throw new TableConflictException();
             }
             _current.tables.Add(new Table { name = name, ColumnDefinitions = constraints });
             
@@ -115,6 +123,10 @@ namespace DatabaseManagement.Core
         public void SelectDatabase(string name)
         {
             _current = databases.Find(db => db.name == name);
+            if (_current == null)
+            {
+                throw new NotSelectedDatabaseException();
+            }
         }
     }
 }
