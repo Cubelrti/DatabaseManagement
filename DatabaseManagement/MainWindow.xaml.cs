@@ -1,6 +1,8 @@
 ﻿using DatabaseManagement.Core;
+using DatabaseManagement.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,7 +78,29 @@ namespace DatabaseManagement
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             SelectedDatabase.Content = instance._current.name;
-            TableList.ItemsSource = instance._current.tables;
+            TableList.ItemsSource = new ObservableCollection<Core.Entities.Table>(instance._current.tables);
+            TableList.UnselectAll();
+        }
+
+        private void TableList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count < 1)
+            {
+                return;
+            }
+            var item = (Core.Entities.Table)e.AddedItems[0];
+            RowGridView.AllowsColumnReorder = true;
+            RowGridView.Columns.Clear();
+            RowList.DataContext = item.rows;
+            item.ColumnDefinitions.Select(kv =>
+            {
+                var column = new GridViewColumn();
+                column.Header = kv.Key;
+                column.DisplayMemberBinding = new Binding($"data[{kv.Key}]");
+                return column;
+            }).ToList().ForEach(col => RowGridView.Columns.Add(col));
+
+            RowList.ItemsSource = new ObservableCollection<Row>(item.rows);
         }
     }
 }

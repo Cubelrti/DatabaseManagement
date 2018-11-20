@@ -53,13 +53,13 @@
                     <Button Background="{x:Null}" BorderBrush="{x:Null}">➖</Button>
                     <Label x:Name="SelectedDatabase" HorizontalContentAlignment="Right">Not selected database</Label>
                 </WrapPanel>
-                <ListView x:Name="TableList" Grid.Row="1" BorderBrush="{x:Null}">
+                <ListView x:Name="TableList" Grid.Row="1" BorderBrush="{x:Null}" SelectionChanged="TableList_SelectionChanged">
                     
                 </ListView>
             </Grid>
             <ListView x:Name="RowList" Grid.Column="1">
                 <ListView.View>
-                    <GridView>
+                    <GridView x:Name="RowGridView">
                     </GridView>
                 </ListView.View>
             </ListView>

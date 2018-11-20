@@ -21,5 +21,12 @@ namespace DatabaseManagement.Core.Entities
         // 这里kv不检查类型，类型信息统一存储在constraint中
         public Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
 
+
+        public Dictionary<string, object> data
+        {
+            get { return keyValuePairs; }
+        }
+
+
     }
 }
