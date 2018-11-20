@@ -1,34 +1,26 @@
-# DatabaseManagement
+# TiDatabase
+一个简单的，以学习数据库底层操作为目的的DBMS实现。
 
-目前看过的Repo：
+## 核心功能
+- 核心(Database.Core.Main)
+- 转译器(Database.Core.Executor)
+- 数据库的CRUD(CREATE DATABASE, USE, DROP DATABASE)
+- 表的CRUD(CREATE TABLE, SELECT, DELETE, DROP TABLE)
+- 基础查询(WHERE)
+- GUI查询、命令、构造功能
+
+## 技术
+深度依赖于LINQ以及List<T>，自己实现了一些简单的封装。
+转译器实现存在很多不完整的地方。没有使用AST和其他的数据结构。
+
+## 测试
+见**UnitTest**。现在共有18个可用的测试，分别对应了Database.Core.Main与Database.Core.Executor。
+覆盖了小部分常用的数据库操作。可使用NUnit或者Visual Studio Test来运行。
+
+# References
+
 - [halfvim/minidb](https://github.com/halfvim/minidb) C++/Boost，无makefile
 - [codewdy/mymymysql](https://github.com/codewdy/mymymysql) VC++，cmake
 
-# minidb
-
-有完整的Lexer，本质是通过正则表达式，可以参考。
-Lexer里面只能传入一次分号，也就是不能多个语句。个人认为这个实现很蠢。
-有完整的Indexer，没怎么看。
-代码比较整洁简短，API部分不超过400行。
-个人感觉这个实现的鲁棒性很差，随处可见的字符串比对。
-`Intepreter`这个类就是可以参考的解释器。
-
-# mymymysql
-
-没有完整的Lexer，用的是SQLite自带的Lemon。
-有比较简洁的执行器。
-有一个文件读写的实现，用的是LRU的缓存策略。
-代码鲁棒性较好，带有test。
-VC++的实现。
-
-# 随记
-
-感觉这个用TDD是最好的。
-毕竟是引擎类的东西，没有个三两年的积累很难写好。
-TDD: UnitTest项目
-
-## SQLBuilder
-
-什么怪物，搞不懂。
 
 
