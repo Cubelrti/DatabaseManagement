@@ -15,8 +15,8 @@
         <Menu ContextMenuService.Placement="Right">
             <MenuItem Padding="4" Header="_File">
                 <MenuItem Header="_New" />
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" />
+                <MenuItem Header="_Open Snapshot" />
+                <MenuItem Header="_Save Snapshot" />
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>
