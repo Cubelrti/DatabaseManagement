@@ -14,7 +14,7 @@
 转译器实现存在很多不完整的地方。没有使用AST和其他的数据结构。
 
 ## 测试
-见**UnitTest**。现在共有18个可用的测试，分别对应了Database.Core.Main与Database.Core.Executor。
+见**UnitTest**。现在共有17个可用的测试，分别对应了Database.Core.Main与Database.Core.Executor。
 覆盖了小部分常用的数据库操作。可使用NUnit或者Visual Studio Test来运行。
 
 # References
