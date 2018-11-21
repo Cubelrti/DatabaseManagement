@@ -1,5 +1,6 @@
 ﻿using DatabaseManagement.Core;
 using DatabaseManagement.Core.Entities;
+using DatabaseManagement.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -48,6 +49,7 @@ namespace DatabaseManagement
             Print("");
             IO.Deserialize(instance);
             Print($"Loaded {instance.databases.Count} database(s).");
+            Refresh_Button_Click(null, null);
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -78,15 +80,40 @@ namespace DatabaseManagement
             Refresh_Button_Click(this, null);
         }
 
-        private void Refresh_Button_Click(object sender, RoutedEventArgs e)
+        public void SubmitSQLCommand(string sql)
         {
+            SQLCommand.Text = sql;
+        }
+
+        private void RefreshDatabases()
+        {
+            // 获取所有的Database
+            DatabaseList.Items.Clear();
+            instance.databases.ForEach(db =>
+            {
+                var comboItem = new ComboBoxItem();
+                comboItem.Content = db.name;
+                DatabaseList.Items.Add(comboItem);
+            });
+        }
+
+        private void RefreshTables()
+        {
+            // 获取当前的表
             if (instance._current == null)
             {
                 return;
             }
-            SelectedDatabase.Content = instance._current.name;
+
+            //SelectedDatabase.Content = instance._current.name;
             TableList.ItemsSource = new ObservableCollection<Core.Entities.Table>(instance._current.tables);
             TableList.UnselectAll();
+        }
+
+        private void Refresh_Button_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshDatabases();
+            RefreshTables();
         }
 
         private void TableList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -113,6 +140,23 @@ namespace DatabaseManagement
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             IO.Serialize(instance);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            CreateDatabase create = new CreateDatabase(this);
+            create.Show();
+        }
+
+        private void DatabaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count < 1)
+            {
+                return;
+            }
+            ComboBoxItem item = (ComboBoxItem)e.AddedItems[0];
+            instance.SelectDatabase((string)item.Content);
+            RefreshTables();
         }
     }
 }

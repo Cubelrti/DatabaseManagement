@@ -1,0 +1,31 @@
+﻿<Window x:Class="DatabaseManagement.Dialogs.CreateDatabase"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DatabaseManagement"
+        mc:Ignorable="d"
+        Title="Create" Height="276.181" Width="528.648">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Height="26" Margin="73,3,199,1" Width="104">Create Database</Label>
+        <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Margin="39,49,39,47" Width="47">Name:</Label>
+        <TextBox x:Name="dbName" Grid.Row="1" Grid.Column="1" Height="25"/>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Margin="10">Cancel</Button>
+            <Button Margin="10" Grid.Column="1" Click="Button_Click">Submit</Button>
+        </Grid>
+    </Grid>
+</Window>

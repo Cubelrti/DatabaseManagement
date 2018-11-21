@@ -17,11 +17,24 @@ namespace DatabaseManagement.Dialogs
     /// <summary>
     /// Interaction logic for Create.xaml
     /// </summary>
-    public partial class Create : Window
+    public partial class CreateDatabase : Window
     {
-        public Create()
+        private MainWindow mainWindow;
+        public CreateDatabase(MainWindow parent)
         {
             InitializeComponent();
+            mainWindow = parent;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.SubmitSQLCommand($"CREATE DATABASE {dbName.Text};");
+            Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
