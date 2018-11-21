@@ -48,7 +48,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <WrapPanel VerticalAlignment="Center">
-                    <Button FontFamily="Segoe UI Emoji" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_1">🔄</Button>
+                    <Button FontFamily="Segoe UI Emoji" Background="{x:Null}" BorderBrush="{x:Null}" Click="Refresh_Button_Click">🔄</Button>
                     <Button Background="{x:Null}" BorderBrush="{x:Null}">➕</Button>
                     <Button Background="{x:Null}" BorderBrush="{x:Null}">➖</Button>
                     <Label x:Name="SelectedDatabase" HorizontalContentAlignment="Right">Not selected database</Label>

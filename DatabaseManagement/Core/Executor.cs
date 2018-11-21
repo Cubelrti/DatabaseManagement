@@ -155,7 +155,8 @@ namespace DatabaseManagement.Core
                     var rows = instance.SelectAny(tokens[from + 1])
                         .Where(filterWhere())
                         .Select(r => r.keyValuePairs);
-                    var values = rows.Select(r => r.Where(kv => columns.Contains(kv.Key)).Select(obj => obj.Value.ToString()).ToList())
+                    var values = rows.Select(r => r.Where(kv => columns.Contains(kv.Key))
+                        .Select(obj => obj.Value.ToString()).ToList())
                         .Select(row => row.Aggregate((a, b) => a + ", " + b))
                         .Aggregate((a, b) => a + "\n" + b);
                     return values;

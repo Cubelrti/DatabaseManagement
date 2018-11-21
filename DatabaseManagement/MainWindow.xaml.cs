@@ -73,10 +73,15 @@ namespace DatabaseManagement
             }
             Scroller.ScrollToEnd();
             SQLCommand.Text = "";
+            Refresh_Button_Click(this, null);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (instance._current == null)
+            {
+                return;
+            }
             SelectedDatabase.Content = instance._current.name;
             TableList.ItemsSource = new ObservableCollection<Core.Entities.Table>(instance._current.tables);
             TableList.UnselectAll();
