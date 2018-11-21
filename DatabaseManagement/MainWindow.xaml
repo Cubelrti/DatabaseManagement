@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseManagement"
         mc:Ignorable="d"
-        Title="TiSQL Builder" Height="658" Width="1100">
+        Title="TiSQL Builder" Height="658" Width="1100" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -67,9 +67,9 @@
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="25"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <ScrollViewer x:Name="Scroller">
+            <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Auto">
                 <TextBlock Padding="8" x:Name="Log" Background="#FF1C0974" Foreground="White" FontFamily="Consolas"></TextBlock>
             </ScrollViewer>
             <Grid Grid.Row="1">
@@ -79,7 +79,7 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Label>SQL></Label>
-                <TextBox x:Name="SQLCommand" Grid.Column="1" KeyDown="TextBox_KeyDown" VerticalAlignment="Center"></TextBox>
+                <TextBox VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" x:Name="SQLCommand" Grid.Column="1" KeyDown="TextBox_KeyDown" VerticalAlignment="Center"></TextBox>
                 <Button Grid.Column="2" Click="Button_Click">执行</Button>
             </Grid>
         </Grid>

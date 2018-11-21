@@ -46,6 +46,8 @@ namespace DatabaseManagement
             executor = new Executor(instance);
             Print("Loaded Executor: Tinterpreter v0.1");
             Print("");
+            IO.Deserialize(instance);
+            Print($"Loaded {instance.databases.Count} database(s).");
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -106,6 +108,11 @@ namespace DatabaseManagement
             }).ToList().ForEach(col => RowGridView.Columns.Add(col));
 
             RowList.ItemsSource = new ObservableCollection<Row>(item.rows);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            IO.Serialize(instance);
         }
     }
 }

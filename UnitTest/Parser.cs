@@ -67,7 +67,7 @@ namespace UnitTest
             Executor expr = new Executor(instance);
             expr.Run("CREATE DATABASE fuck");
             expr.Run("CREATE DATABASE xcz");
-            var result = expr.Run("SHOW DATABASE");
+            var result = expr.Run("SHOW DATABASES");
             Assert.AreEqual("fuck, xcz", result);
         }
         [TestMethod]
@@ -90,7 +90,7 @@ namespace UnitTest
                 ssex varchar(2),
                 sbirthday date
             )");
-            var result = expr.Run("SHOW TABLE");
+            var result = expr.Run("SHOW TABLES");
             Assert.AreEqual("class, student", result);
         }
         [TestMethod]

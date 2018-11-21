@@ -14,6 +14,7 @@ namespace DatabaseManagement.Core.Entities
         DATE,
         CHAR
     }
+    [Serializable()]
     public class Row
     {
         public string name;

@@ -190,7 +190,7 @@ namespace DatabaseManagement.Core
             formatted = Regex.Replace(formatted, @"< +=", "<=");
             formatted = Regex.Replace(formatted, @"> +=", ">=");
 
-            return formatted.Split(' ').Where(s => !string.IsNullOrEmpty(s)).ToList();
+            return formatted.Split(' ').Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Replace(";", "")).ToList();
         }
         public Executor(Main instance)
         {
@@ -217,9 +217,9 @@ namespace DatabaseManagement.Core
                         type = ExprType.SELECT;
                         break;
                     case "show":
-                        if (expr[1] == "database")
+                        if (expr[1] == "databases")
                             type = ExprType.SHOWDATABASE;
-                        if (expr[1] == "table")
+                        if (expr[1] == "tables")
                             type = ExprType.SHOWTABLE;
                         break;
                     case "drop":
