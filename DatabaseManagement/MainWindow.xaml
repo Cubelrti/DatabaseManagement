@@ -23,10 +23,10 @@
             </MenuItem>
             <MenuItem Padding="4" Header="_Syntax">
                 <MenuItem Header="_Create Database" Click="MenuItem_Click"/>
-                <MenuItem Header="_Drop Database"/>
+                <MenuItem Header="_Drop Database" Click="MenuItem_Click_1"/>
                 <Separator/>
-                <MenuItem Header="_Create Table"/>
-                <MenuItem Header="_Drop Table"/>
+                <MenuItem Header="_Create Table" Click="MenuItem_Click_2"/>
+                <MenuItem Header="_Drop Table" Click="MenuItem_Click_3"/>
             </MenuItem>
             <MenuItem Padding="4" Header="_Query">
                 <MenuItem Header="Select Columns..."/>
@@ -43,8 +43,9 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid>
+            <Grid Margin="4">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
@@ -61,7 +62,8 @@
                     <ComboBox Grid.Column="1" x:Name="DatabaseList" SelectionChanged="DatabaseList_SelectionChanged">
                     </ComboBox>
                 </Grid>
-                <ListView x:Name="TableList" Grid.Row="1" BorderBrush="{x:Null}" SelectionChanged="TableList_SelectionChanged"/>
+                <Label Grid.Row="1">Current Tables</Label>
+                <ListView x:Name="TableList" Grid.Row="2" BorderBrush="{x:Null}" SelectionChanged="TableList_SelectionChanged"/>
             </Grid>
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="8"/>
             <ListView x:Name="RowList" Grid.Column="2">

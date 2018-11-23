@@ -104,7 +104,6 @@ namespace DatabaseManagement
             {
                 return;
             }
-
             //SelectedDatabase.Content = instance._current.name;
             TableList.ItemsSource = new ObservableCollection<Core.Entities.Table>(instance._current.tables);
             TableList.UnselectAll();
@@ -157,6 +156,24 @@ namespace DatabaseManagement
             ComboBoxItem item = (ComboBoxItem)e.AddedItems[0];
             instance.SelectDatabase((string)item.Content);
             RefreshTables();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            DropDatabase drop = new DropDatabase(this);
+            drop.Show();
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            CreateTable create = new CreateTable(this);
+            create.Show();
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            DropTable drop = new DropTable(this);
+            drop.Show();
         }
     }
 }

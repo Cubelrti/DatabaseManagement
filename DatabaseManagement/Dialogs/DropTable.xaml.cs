@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 namespace DatabaseManagement.Dialogs
 {
     /// <summary>
-    /// Interaction logic for DropDatabase.xaml
+    /// Interaction logic for DropTable.xaml
     /// </summary>
-    public partial class DropDatabase : Window
+    public partial class DropTable : Window
     {
         private MainWindow mainWindow;
-        public DropDatabase(MainWindow parent)
+        public DropTable(MainWindow parent)
         {
             InitializeComponent();
             mainWindow = parent;
@@ -28,7 +28,7 @@ namespace DatabaseManagement.Dialogs
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.SubmitSQLCommand($"DROP DATABASE {dbName.Text};");
+            mainWindow.SubmitSQLCommand($"DROP TABLE {dbName.Text};");
             Close();
         }
 

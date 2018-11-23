@@ -58,6 +58,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\CreateTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DropDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DropTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +97,15 @@
     <Compile Include="Dialogs\CreateDatabase.xaml.cs">
       <DependentUpon>CreateDatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\CreateTable.xaml.cs">
+      <DependentUpon>CreateTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DropDatabase.xaml.cs">
+      <DependentUpon>DropDatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DropTable.xaml.cs">
+      <DependentUpon>DropTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -109,6 +130,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="docfx.json">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
