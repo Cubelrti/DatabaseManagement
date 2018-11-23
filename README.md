@@ -1,6 +1,8 @@
 # TiDatabase
 一个简单的，以学习数据库底层操作为目的的DBMS实现。
 
+![screenshot](https://raw.githubusercontent.com/Cubelrti/DatabaseManagement/master/Screenshots/screenshot.png)
+
 ## 核心功能
 - 核心(`Database.Core.Main`)
 - 转译器(`Database.Core.Executor`)
