@@ -59,7 +59,7 @@
                     <WrapPanel VerticalAlignment="Center">
                         <Button FontFamily="Segoe UI Emoji" Background="{x:Null}" BorderBrush="{x:Null}" Click="Refresh_Button_Click">🔄</Button>
                         <Button Click="MenuItem_Click" Background="{x:Null}" BorderBrush="{x:Null}">➕</Button>
-                        <Button Background="{x:Null}" BorderBrush="{x:Null}">➖</Button>
+                        <Button Click="MenuItem_Click_1" Background="{x:Null}" BorderBrush="{x:Null}">➖</Button>
                     </WrapPanel>
                     <ComboBox Grid.Column="1" x:Name="DatabaseList" SelectionChanged="DatabaseList_SelectionChanged">
                     </ComboBox>
