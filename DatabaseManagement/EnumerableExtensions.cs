@@ -8,7 +8,8 @@ namespace DatabaseManagement
 {
     public static class EnumerableExtensions
     {
-        public static IEnumerable<IList<TSource>> Split<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<IList<TSource>> Split<TSource>
+            (this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var list = new List<TSource>();
 
