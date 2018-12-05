@@ -39,6 +39,20 @@
                                 </Style>
                             </DataGridComboBoxColumn.EditingElementStyle>
                         </DataGridComboBoxColumn>
+                        <DataGridComboBoxColumn Header="Option" Width="1*">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Path=Options}" />
+                                    <Setter Property="SelectedValue" Value="{Binding Path=Option}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Path=Options}" />
+                                    <Setter Property="SelectedValue" Value="{Binding Path=Option}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Grid Grid.Row="3" Grid.Column="1">

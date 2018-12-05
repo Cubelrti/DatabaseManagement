@@ -88,7 +88,17 @@ namespace DatabaseManagement.Core
                 var constraints = tokens.Skip(4)
                     .Split(s => s == ",")
                     .ToDictionary(expr => expr[0],  expr => ToType(expr[1]));
-                instance.CreateTable(name, constraints);
+                var primaryKey = tokens.Skip(4)
+                    .Split(s => s == ",")
+                    .Where(expr => expr.Aggregate((i, j) => i + " " + j).Contains("primary key"))
+                    .Select(expr => expr[0])
+                    .ToList();
+                var notNullKey = tokens.Skip(4)
+                    .Split(s => s == ",")
+                    .Where(expr => expr.Aggregate((i, j) => i + " " + j).Contains("not null"))
+                    .Select(expr => expr[0])
+                    .ToList();
+                instance.CreateTable(name, constraints, notNullKey, primaryKey);
             }
             if (type == ExprType.SHOWDATABASE)
             {
@@ -124,6 +134,7 @@ namespace DatabaseManagement.Core
                 var values = tokens.Skip(3)
                     .Where(v => v != "(" && v != ")")
                     .Select(s => s.Replace("'", ""))
+                    .Select(s => s == "null" ? null : s)
                     .Split(s => s == "values")
                     .Select(li => li.Split(s => s == ","))
                     .ToList();

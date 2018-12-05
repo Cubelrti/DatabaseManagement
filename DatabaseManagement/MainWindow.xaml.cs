@@ -1,6 +1,7 @@
 ﻿using DatabaseManagement.Core;
 using DatabaseManagement.Core.Entities;
 using DatabaseManagement.Dialogs;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -239,6 +240,34 @@ namespace DatabaseManagement
                     _lastDirection = direction;
                 }
             }
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog()
+            {
+                Filter = "TiDatabase(*.db)|*.db|All(*.*)|*"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                IO.Serialize(instance, dialog.FileName);
+                Print($"--- Saved Snapshot to {dialog.FileName} ---");
+            }
+        }
+
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+                Filter = "TiDatabase(*.db)|*.db|All(*.*)|*"
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                IO.Deserialize(instance, dialog.FileName);
+                Print($"--- Read snapshot from {dialog.FileName} ---");
+            }
+            Refresh_Button_Click(null, null);
         }
     }
 }

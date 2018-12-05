@@ -11,8 +11,8 @@ namespace DatabaseManagement.Core
 {
     class IO
     {
-        public static readonly string filename = "ti.db";
-        public static void Serialize(Main instance)
+        public const string filename = "ti.db";
+        public static void Serialize(Main instance, string filename = filename)
         {
             using (var filestream = File.OpenWrite(filename))
             {
@@ -21,7 +21,7 @@ namespace DatabaseManagement.Core
             }
                 
         }
-        public static void Deserialize(Main instance)
+        public static void Deserialize(Main instance, string filename = filename)
         {
             if (File.Exists(filename))
             {

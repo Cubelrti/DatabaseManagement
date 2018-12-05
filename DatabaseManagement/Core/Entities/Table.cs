@@ -12,6 +12,8 @@ namespace DatabaseManagement.Core.Entities
         public string name;
         public Dictionary<string, Types> ColumnDefinitions;
         public List<Row> rows = new List<Row>();
+        public List<string> notNullColumn = new List<string>();
+        public List<string> primaryColumn = new List<string>();
         public override string ToString()
         {
             return name;

@@ -39,7 +39,8 @@ namespace DatabaseManagement.Dialogs
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var types = columns.Select(col => col.Name + " " + col.Type).Aggregate((a, b) => a + ", " + b);
+            var types = columns.Select(col => col.Name + " " + col.Type + " " + col.Option)
+                .Aggregate((a, b) => a + ", " + b);
             mainWindow.SubmitSQLCommand($"CREATE TABLE {dbName.Text} ({types});");
             Close();
         }
@@ -54,12 +55,17 @@ namespace DatabaseManagement.Dialogs
         public ObservableCollection<string> Types { get; } = new ObservableCollection<string>();
         public string Name { get; set; }
         public string Type { get; set; }
+        public string Option { get; set; }
+        public ObservableCollection<string> Options { get; } = new ObservableCollection<string>();
         public Column()
         {
             Types.Add("VARCHAR");
             Types.Add("INTEGER");
             Types.Add("DATE");
             Types.Add("DOUBLE");
+            Options.Add("");
+            Options.Add("PRIMARY KEY");
+            Options.Add("NOT NULL");
         }
     }
 

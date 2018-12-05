@@ -18,8 +18,8 @@
         <Menu ContextMenuService.Placement="Right">
             <MenuItem Padding="4" Header="_File">
                 <MenuItem Header="_New" />
-                <MenuItem Header="_Open Snapshot" />
-                <MenuItem Header="_Save Snapshot" />
+                <MenuItem Header="_Open Snapshot" Click="MenuItem_Click_5"  />
+                <MenuItem Header="_Save Snapshot" Click="MenuItem_Click_4"/>
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>

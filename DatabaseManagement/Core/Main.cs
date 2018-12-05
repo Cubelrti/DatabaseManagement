@@ -28,7 +28,7 @@ namespace DatabaseManagement.Core
             }
             databases.Remove(_remove);
         }
-        public void CreateTable(string name, Dictionary<string, Types> constraints)
+        public void CreateTable(string name, Dictionary<string, Types> constraints, List<string> notnull = null, List<string> primary = null)
         {
             if (_current == null)
             {
@@ -38,7 +38,12 @@ namespace DatabaseManagement.Core
             {
                 throw new TableConflictException();
             }
-            _current.tables.Add(new Table { name = name, ColumnDefinitions = constraints });
+            _current.tables.Add(new Table {
+                name = name,
+                ColumnDefinitions = constraints,
+                notNullColumn = notnull,
+                primaryColumn = primary,
+            });
             
         }
         public void DropTable(string name)
@@ -72,6 +77,27 @@ namespace DatabaseManagement.Core
                 if (!_table.ColumnDefinitions.ContainsKey(key))
                 {
                     throw new KeyNotFoundException();
+                }
+                if (_table.primaryColumn != null && _table.primaryColumn.Contains(item.Key))
+                {
+                    // check primary
+                    if (_table.rows.Find(r => r.keyValuePairs[item.Key].ToString() == item.Value) != null)
+                    {
+                        throw new PrimaryKeyConflictException();
+                    }
+                    // also check notnull
+                    if (item.Value == null)
+                    {
+                        throw new NotNullException();
+                    }
+                }
+                if (_table.notNullColumn != null && _table.notNullColumn.Contains(item.Key))
+                {
+                    // check notnull
+                    if (item.Value == null)
+                    {
+                        throw new NotNullException();
+                    }
                 }
                 // pattern matching foreach-switch
                 switch (_table.ColumnDefinitions[key])

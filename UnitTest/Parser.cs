@@ -43,6 +43,41 @@ namespace UnitTest
             Assert.AreEqual(VARCHAR, instance._current.tables[0].ColumnDefinitions["classno"]);
         }
         [TestMethod]
+        public void ParseNotNull()
+        {
+            Main instance = new Main();
+            Executor expr = new Executor(instance);
+            expr.Run("CREATE DATABASE fuck");
+            expr.Run("USE fuck");
+            expr.Run(@"CREATE TABLE class(
+                classno varchar(6) not null
+            )");
+            Assert.AreEqual(VARCHAR, instance._current.tables[0].ColumnDefinitions["classno"]);
+            
+            Assert.ThrowsException<NotNullException>(() =>
+            {
+                expr.Run("insert into class (classno) values (null)");
+            });
+        }
+        [TestMethod]
+        public void ParsePrimaryKey()
+        {
+            Main instance = new Main();
+            Executor expr = new Executor(instance);
+            expr.Run("CREATE DATABASE fuck");
+            expr.Run("USE fuck");
+            expr.Run(@"CREATE TABLE class(
+                classno varchar(6) primary key
+            )");
+            Assert.AreEqual(VARCHAR, instance._current.tables[0].ColumnDefinitions["classno"]);
+
+            Assert.ThrowsException<PrimaryKeyConflictException>(() =>
+            {
+                expr.Run("insert into class (classno) values ('233')");
+                expr.Run("insert into class (classno) values ('233')");
+            });
+        }
+        [TestMethod]
         public void ParseDropTable()
         {
             Main instance = new Main();
