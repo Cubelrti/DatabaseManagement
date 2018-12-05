@@ -57,18 +57,23 @@ namespace DatabaseManagement.Core
             }
             var predicates = tokens.Skip(whereStartBy + 1)
                 .Select(s => s.Replace("'", ""))
+                .Split(s => s == "and")
                 .ToList();
-            var lhs = predicates[0];
             return (row) =>
             {
-                if (predicates[1] == "=")
+                foreach (var item in predicates)
                 {
-                    if (row.keyValuePairs[predicates[0]].ToString() == predicates[2])
+                    var lhs = item[0];
+                    if (item[1] == "=")
                     {
-                        return reverse ^ true;
+                        if (row.keyValuePairs[item[0]].ToString() != item[2])
+                        {
+                            return reverse ^ false;
+                        }
                     }
+                    
                 }
-                return reverse ^ false;
+                return reverse ^ true;
             };
         }
 

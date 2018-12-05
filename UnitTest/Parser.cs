@@ -13,7 +13,7 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
+            expr.Run("CREATE DATABASE hug");
             Assert.AreEqual(1, instance.databases.Count);
         }
         [TestMethod]
@@ -21,9 +21,9 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
+            expr.Run("CREATE DATABASE hug");
             Assert.AreEqual(1, instance.databases.Count);
-            expr.Run("DROP DATABASE fuck");
+            expr.Run("DROP DATABASE hug");
             Assert.AreEqual(0, instance.databases.Count);
         }
         [TestMethod]
@@ -31,8 +31,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6),
                 classname varchar(20),
@@ -47,8 +47,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6) not null
             )");
@@ -64,8 +64,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6) primary key
             )");
@@ -82,8 +82,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6),
                 classname varchar(20),
@@ -100,18 +100,18 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
+            expr.Run("CREATE DATABASE hug");
             expr.Run("CREATE DATABASE xcz");
             var result = expr.Run("SHOW DATABASES");
-            Assert.AreEqual("fuck, xcz", result);
+            Assert.AreEqual("hug, xcz", result);
         }
         [TestMethod]
         public void ParseShowTable()
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6),
                 classname varchar(20),
@@ -133,8 +133,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6),
                 classname varchar(20),
@@ -152,8 +152,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6),
                 classname varchar(20),
@@ -175,8 +175,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6),
                 classname varchar(20),
@@ -195,8 +195,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6),
                 classname varchar(20),
@@ -216,8 +216,8 @@ namespace UnitTest
         {
             Main instance = new Main();
             Executor expr = new Executor(instance);
-            expr.Run("CREATE DATABASE fuck");
-            expr.Run("USE fuck");
+            expr.Run("CREATE DATABASE hug");
+            expr.Run("USE hug");
             expr.Run(@"CREATE TABLE class(
                 classno varchar(6),
                 classname varchar(20),
