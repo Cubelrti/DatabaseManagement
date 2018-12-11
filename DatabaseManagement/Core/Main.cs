@@ -1,16 +1,24 @@
 ﻿using DatabaseManagement.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DatabaseManagement.Core
 {
-    public class Main
+    [Serializable()]
+    public class Main : ICloneable
     {
         public List<Database> databases = new List<Database>();
         public Database _current;
+        public string name = "snapshot";
+        public override string ToString()
+        {
+            return name;
+        }
         public void CreateDatabase(string name)
         {
             if (databases.Any(db => db.name == name))
@@ -152,6 +160,18 @@ namespace DatabaseManagement.Core
             if (_current == null)
             {
                 throw new NotSelectedDatabaseException();
+            }
+        }
+
+        public object Clone()
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, this);
+                ms.Position = 0;
+
+                return formatter.Deserialize(ms);
             }
         }
     }

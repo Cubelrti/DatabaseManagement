@@ -26,7 +26,8 @@ namespace DatabaseManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Main instance;
+        public List<Main> snapshots = new List<Main>();
+        public Main instance;
         private Executor executor;
         public MainWindow()
         {
@@ -72,6 +73,8 @@ namespace DatabaseManagement
                     .Select(line => "      " + line)
                     .Aggregate((a, b) => a + '\n' + b);
                 Print(result);
+                instance.name = SQLCommand.Text;
+                snapshots.Add((Main)instance.Clone());
             }
             catch (Exception ex)
             {
@@ -111,7 +114,7 @@ namespace DatabaseManagement
             TableList.UnselectAll();
         }
 
-        private void Refresh_Button_Click(object sender, RoutedEventArgs e)
+        public void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
             RefreshDatabases();
             RefreshTables();
@@ -268,6 +271,12 @@ namespace DatabaseManagement
                 Print($"--- Read snapshot from {dialog.FileName} ---");
             }
             Refresh_Button_Click(null, null);
+        }
+
+        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        {
+            Snapshot snapshot = new Snapshot(this);
+            snapshot.Show();
         }
     }
 }

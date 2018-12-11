@@ -70,6 +70,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\Snapshot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -107,6 +111,9 @@
     </Compile>
     <Compile Include="Dialogs\DropTable.xaml.cs">
       <DependentUpon>DropTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Snapshot.xaml.cs">
+      <DependentUpon>Snapshot.xaml</DependentUpon>
     </Compile>
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="MainWindow.xaml.cs">
